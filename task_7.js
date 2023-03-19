@@ -1,4 +1,4 @@
-const mod = require('./custom_module/module');
+const mod = require('./custom_modules');
 
 //Додавання портів
 let port1 = mod.add_Port("Port_1");
