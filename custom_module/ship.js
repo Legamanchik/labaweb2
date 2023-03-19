@@ -1,11 +1,5 @@
-//Класс Порт
-class Port {
-    constructor(name) {
-        this.name = name;
-        this.pierList = [];
-    }
-}
-
+//Ініціалізація колекцій кораблів
+let global_ship_List = [];
 //Клас Корабель
 class Ship {
     constructor(name) {
@@ -15,112 +9,7 @@ class Ship {
     }
 }
 
-//Клас Пристань
-class Pier {
-    constructor(name) {
-        this.name = name;
-        this.shipList = [];
-    }
-}
-
-//Ініціалізація колекцій портів і кораблів
-let global_port_List = [];
-let global_ship_List = [];
-
-//Функія додавання порту в колекцію
-exports.add_Port = (name) => {
-    let port = new Port(name);
-    global_port_List.push(port);
-
-    return port;
-}
-
-//Функція видалення порту з колекції
-exports.remove_Port = (port) => {
-    for (let i = 0; i < global_port_List.length; i++) {
-        let portRem = global_port_List[i];
-        if (portRem.name === port.name) {
-            global_port_List.splice(i, 1);
-            return 1;
-        }
-    }
-    return -1;
-}
-//Функція редагування порту в колекції
-exports.edit_Port = (name, new_Name) => {
-    for (let i = 0; i < global_port_List.length; i++) {
-        let port = global_port_List[i];
-        if (port.name === name) {
-            global_port_List[i].name = new_Name;
-            return 1;
-        }
-    }
-    return -1;
-}
-
-//Функція виводу всіх портів в колекції
-exports.get_Port_List = () => {
-    console.log("Port list : ");
-    for (let i = 0; i < global_port_List.length; i++) {
-        let hosp = global_port_List[i];
-        console.log(`\tPort name : ${hosp.name}`);
-    }
-    console.log();
-    return global_port_List;
-}
-
-//Функція пошуку одного порту в колекції
-exports.find_Port = (name) => {
-    for (let i = 0; i < global_port_List.length; i++) {
-        let port = global_port_List[i];
-        if (port.name === name) {
-            return port;
-        }
-    }
-    return -1;
-}
-
-//Функція додавання пристані до порту
-exports.add_PierToPort = (port_name, pier_name) => {
-    for (let i = 0; i < global_port_List.length; i++) {
-        let port = global_port_List[i];
-        if (port.name === port_name) {
-            port.pierList.push(new Pier(pier_name));
-            return 1;
-        }
-    }
-    return -1;
-}
-
-//Функція видалення пристані із порту
-exports.remove_PierFromPort = (port, pier_name) => {
-    for (let i = 0; i < global_port_List.length; i++) {
-        let portG = global_port_List[i];
-        if (portG.name === port.name) {
-            for (let j = 0; j < port.pierList.length; j++) {
-                let pier = port.pierList[j];
-                if (pier.name === pier_name) {
-                    portG.pierList.splice(j, 1);
-                    return 1;
-                }
-            }
-        }
-    }
-    return -1;
-}
-
-//Функція виводу пристаней в порті
-exports.show_PiersInPort = (port) => {
-    console.log("Pier list : ");
-    for (let i = 0; i < port.pierList.length; i++) {
-        let hosp = port.pierList[i];
-        console.log(`\tPier name : ${hosp.name}`);
-    }
-    console.log();
-    return port.pierList;
-}
-
-//Функція додавання корабля на пристань
+// Функція додавання корабля на пристань
 exports.add_ShipToPier = (ship, pier) => {
     if (pier.shipList.length < 2) {
         pier.shipList.push(ship);
@@ -130,7 +19,7 @@ exports.add_ShipToPier = (ship, pier) => {
         console.log("Pier is full");
         return -1;
     }
-}
+};
 
 //Фугкція видалення корабля із пристані
 exports.remove_ShipFromPier = (ship, pier) => {
@@ -147,12 +36,6 @@ exports.remove_ShipFromPier = (ship, pier) => {
             return 1;
         }
     }
-}
-
-//Функція повернення дати і часу
-get_Date = () => {
-    let today = new Date();
-    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + "-" +today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 }
 
 //Функція додавання корабля в колекцію
@@ -240,4 +123,10 @@ exports.show_ShipsOnPier = (pier) => {
     }
     console.log();
     return pier.shipList;
+}
+
+//Функція повернення дати і часу
+exports.get_Date = () => {
+    let today = new Date();
+    return today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + "-" +today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 }
